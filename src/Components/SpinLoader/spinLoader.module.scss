@@ -1,0 +1,53 @@
+@import "../../styles/scss/break_point.scss";
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.message_load {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  @media (max-width: $layout-breakpoint-SCREEN_XL) {
+    gap: 2rem;
+  }
+  @media (max-width: $layout-breakpoint-SCREEN_MD) {
+    gap: 1.5rem;
+  }
+  @media (max-width: $layout-breakpoint-SCREEN_SSM) {
+    gap: 1rem;
+  }
+  .title_load {
+    font-size: 2.2rem;
+    @media (max-width: $layout-breakpoint-SCREEN_XL) {
+      font-size: 1.8rem;
+    }
+    @media (max-width: $layout-breakpoint-SCREEN_MD) {
+      font-size: 1.6rem;
+    }
+    @media (max-width: $layout-breakpoint-SCREEN_SSM) {
+      font-size: 1.4rem;
+    }
+  }
+  .spin_load {
+    img {
+      transform-origin: center;
+      height: 8rem;
+      animation: rotate infinite 5s linear;
+      @media (max-width: $layout-breakpoint-SCREEN_XXL) {
+        height: 7rem;
+      }
+      @media (max-width: $layout-breakpoint-SCREEN_XL) {
+        height: 5rem;
+      }
+      @media (max-width: $layout-breakpoint-SCREEN_SM) {
+        height: 3rem;
+      }
+    }
+  }
+}

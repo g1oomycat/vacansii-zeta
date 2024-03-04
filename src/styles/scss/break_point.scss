@@ -1,8 +1,11 @@
 // Breakpoints
-$layout-breakpoint-large: 1920px;
-$layout-breakpoint-medium: 1440px;
-$layout-breakpoint-small: 960px;
-$layout-breakpoint-xsmall: 480px;
+$layout-breakpoint-SCREEN_SSSM: 300px;
+$layout-breakpoint-SCREEN_SSM: 400px;
+$layout-breakpoint-SCREEN_SM: 576px;
+$layout-breakpoint-SCREEN_MD: 768px;
+$layout-breakpoint-SCREEN_LG: 992px;
+$layout-breakpoint-SCREEN_XL: 1200px;
+$layout-breakpoint-SCREEN_XXL: 1500px;
 
 // Colors
 $background: #d9d9d9;

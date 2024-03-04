@@ -1,17 +1,30 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { createContext } from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import PopupApplicationsSendToServer from "./store/PopupSendToServer";
+import PopupCMS from "./store/PopupCMS";
+import DataVacFromServer from "./store/DataVacFromServer";
+import DataApplFromServer from "./store/DataApplFromServer";
+import StatusOpenAllPopup from "./store/StatusOpenAllPopup";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+export const Context = createContext(null);
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Context.Provider
+    value={{
+      isOpenPopupServer: new PopupApplicationsSendToServer(),
+      isOpenPopupCMS: new PopupCMS(),
+      dataVacFromServer: new DataVacFromServer(),
+      dataApplFromServer: new DataApplFromServer(),
+      statusOpenAllPopup: new StatusOpenAllPopup(),
+    }}
+  >
+    <Router>
+      <Routes>
+        <Route path="/*" element={<App />} />
+      </Routes>
+    </Router>
+  </Context.Provider>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

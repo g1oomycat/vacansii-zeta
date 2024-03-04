@@ -1,0 +1,47 @@
+@import "../../styles/scss/break_point.scss";
+.footer {
+  width: 100%;
+  height: 8rem;
+  background-color: $background;
+  @media (max-width: 90rem) {
+    height: 100%;
+  }
+
+  .body {
+    padding: 0.7rem 0rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @media (max-width: 90rem) {
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    a,
+    .contacts {
+      opacity: 0.6;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    .item {
+      font-size: 1.8rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      justify-content: center;
+      @media (max-width: $layout-breakpoint-SCREEN_XL) {
+        font-size: 1.6rem;
+      }
+
+      &.item_icon {
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 2.2rem;
+        @media (max-width: $layout-breakpoint-SCREEN_XL) {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+}

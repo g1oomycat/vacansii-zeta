@@ -1,0 +1,16 @@
+.cms {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  background-image: url("../../../public/images/bg_cms.jpg");
+  background-repeat: repeat;
+  .cms_body {
+    position: relative;
+    margin: 10rem 0rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+}

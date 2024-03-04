@@ -1,0 +1,81 @@
+@import "../../../styles/scss/break_point.scss";
+.table_title {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 3rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 2rem;
+  color: $white;
+}
+.conteiner_applications {
+  width: 100%;
+  border: 1px solid rgba($color: $black, $alpha: 0.5);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  max-height: 80rem;
+  overflow-y: auto;
+  background-color: $white;
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 16px 32px rgba(0, 0, 0, 0.1);
+  }
+  .messenge_clear {
+    text-align: center;
+    margin: 1em 0em;
+    font-size: 2rem;
+    font-weight: 600;
+    color: $red;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 0.3fr 1fr 1fr 2fr 1fr 0.7fr 0.7fr 0.7fr;
+    min-height: 4rem;
+    &:hover {
+      background-color: rgba($color: #000000, $alpha: 0.03);
+    }
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba($color: $black, $alpha: 0.5);
+    }
+
+    .item {
+      display: flex;
+      font-size: 1.4rem;
+      width: 100%;
+      padding: 1rem 0.8rem;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        background-color: rgba($color: #000000, $alpha: 0.06);
+      }
+      &:not(:last-child) {
+        border-right: 1px solid rgba($color: $black, $alpha: 0.2);
+      }
+      button {
+        font-size: 1.4rem;
+        font-weight: 500;
+        width: 7em;
+        padding: 0.2em 0em;
+        border: 1px solid $black;
+        border-radius: 0.3em;
+        background-color: $white;
+        transition: all 0.2s ease;
+        &:hover {
+          background-color: $black;
+          color: $white;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
+            0 8px 16px rgba(0, 0, 0, 0.1);
+          a {
+            color: $white;
+          }
+        }
+      }
+    }
+    &.row_header {
+      font-size: 1.6rem;
+      font-weight: 500;
+      min-height: 5rem;
+    }
+  }
+}

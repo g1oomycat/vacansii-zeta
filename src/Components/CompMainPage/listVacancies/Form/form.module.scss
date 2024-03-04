@@ -1,0 +1,43 @@
+@import "../../../../styles/scss/break_point.scss";
+.column_form {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding-top: 5.5rem;
+  @media (max-width: $layout-breakpoint-SCREEN_XXL) {
+    padding-top: 4.5rem;
+  }
+  @media (max-width: $layout-breakpoint-SCREEN_XL) {
+    padding-top: 3.5rem;
+  }
+  @media (max-width: $layout-breakpoint-SCREEN_LG) {
+    gap: 2.5rem;
+  }
+  @media (max-width: $layout-breakpoint-SCREEN_SM) {
+    gap: 2rem;
+  }
+  .enter_title {
+    font-size: 7rem;
+    letter-spacing: -0.02em;
+    @media (max-width: $layout-breakpoint-SCREEN_XXL) {
+      font-size: 5.5rem;
+    }
+    @media (max-width: $layout-breakpoint-SCREEN_XL) {
+      font-size: 4.5rem;
+    }
+    @media (max-width: $layout-breakpoint-SCREEN_SM) {
+      font-size: 3.2rem;
+    }
+  }
+
+  .form_checkbox {
+    display: flex;
+    align-items: center;
+    span {
+      font-size: 1.6rem;
+      @media (max-width: $layout-breakpoint-SCREEN_SM) {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}

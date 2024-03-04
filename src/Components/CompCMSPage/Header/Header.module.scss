@@ -1,0 +1,42 @@
+@import "../../../styles/scss/break_point.scss";
+.header {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 666;
+  background-color: white;
+  height: 5.5rem;
+  border-bottom: 1px solid rgba($color: $black, $alpha: 0.3);
+  .heder_body {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    button {
+      font-size: 1.8rem;
+      font-weight: 500;
+      padding: 0.2em 0.5em;
+      border: 1px solid $black;
+      border-radius: 0.3em;
+      background-color: $white;
+      transition: all 0.2s ease;
+      &:hover {
+        background-color: $black;
+        color: $white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+      }
+    }
+    .menu_list {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      .name {
+        font-size: 1.6rem;
+        font-weight: 500;
+      }
+    }
+  }
+}
