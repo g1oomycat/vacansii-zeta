@@ -103,14 +103,14 @@ const Loader = () => {
 const AnimatedTitle = ({ title }) => (
   <div className={classes.row_block}>
     <motion.span variants={textAnimation} className={classes.row_title}>
-      {title}
+      <h1>{title}</h1>
     </motion.span>
   </div>
 );
 const AnimatedSubTitle = ({ sub_title }) => (
   <div className={classes.row_block}>
     <motion.span variants={textAnimation} className={classes.row_subtitle}>
-      {sub_title}
+      <h2>{sub_title}</h2>
     </motion.span>
   </div>
 );

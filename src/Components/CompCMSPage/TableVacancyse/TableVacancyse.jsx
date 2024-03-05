@@ -3,20 +3,39 @@ import classes from "./TableVacancyse.module.scss";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../..";
 import SpinLoader from "../../SpinLoader/SpinLoader";
+import { addSpacesToPrice } from "../../../functions/addSpacesToPrice";
+import { filterList } from "../../../functions/filterList";
+import FilterButton from "../FilterButton/FilterButton";
+
+const listHeader = [
+  "Номер",
+  "Дата",
+  "Должность",
+  "Место",
+  "ЗП",
+  "Обязонности",
+  "Условия",
+  "Действия",
+];
+const listButtonFilter = [
+  { date: "По дате" },
+  { name: "По должности" },
+  { place: "По месту" },
+  { price: "По ЗП" },
+];
 
 const TableVacancyse = observer(() => {
-  const { isOpenPopupCMS, dataVacFromServer, statusOpenAllPopup } =
-    useContext(Context);
+  const { isOpenPopupCMS, dataVacFromServer } = useContext(Context);
   //Запрос на изъятия данных
   useEffect(() => {
     const getVacData = async () => {
       await dataVacFromServer.getFromFirebase();
-      setVacanciesList(dataVacFromServer.listVacancies);
       setIsLoad(false);
     };
     if (!dataVacFromServer.listVacancies.length) {
       getVacData();
     }
+    setVacanciesList(dataVacFromServer.listVacancies);
   }, [dataVacFromServer.listVacancies]);
 
   const [vacanciesList, setVacanciesList] = useState([]);
@@ -24,7 +43,6 @@ const TableVacancyse = observer(() => {
 
   //Запрос на удаление данных
   const delVac = async (data) => {
-    statusOpenAllPopup.setIsOpen(true);
     isOpenPopupCMS.setIsOpen(true);
     isOpenPopupCMS.setDelData(true);
     isOpenPopupCMS.setDelDataVac(true);
@@ -33,12 +51,20 @@ const TableVacancyse = observer(() => {
 
   //открытие окна для добавления или изменения вакансий
   const openPopup = (vac) => {
-    statusOpenAllPopup.setIsOpen(true);
     isOpenPopupCMS.setIsOpen(true);
     isOpenPopupCMS.setChangeDataVac(true);
     isOpenPopupCMS.setData(vac);
   };
 
+  //фильтрация списка по нажатию
+
+  const [atributFilter, setAtributFilter] = useState("date");
+  const filterVacancies = (atribut) => {
+    setAtributFilter(atribut);
+    setVacanciesList(
+      filterList(dataVacFromServer.listVacancies.slice(), atribut)
+    );
+  };
   return (
     <>
       <div className={classes.table_title}>
@@ -47,9 +73,19 @@ const TableVacancyse = observer(() => {
           <button onClick={() => openPopup(null)}>Добавить вакансию</button>
         </div>
       </div>
+      <FilterButton
+        list_button={listButtonFilter}
+        filter_function={filterVacancies}
+        atributFilter={atributFilter}
+      />
       <div className={classes.conteiner_vacansii}>
-        <HeaderVacancy />
-
+        <div className={`${classes.row} ${classes.row_header}`}>
+          {listHeader.map((item, index) => (
+            <div key={index} className={classes.item}>
+              <div className={classes.item_title}>{item}</div>
+            </div>
+          ))}
+        </div>
         {isLoad && <SpinLoader title={""} />}
         {!isLoad && !vacanciesList.length && (
           <div className={classes.messenge_clear}>Сободных вакансий нет</div>
@@ -73,13 +109,18 @@ const RowVacancy = ({ vac, index, delVac, openPopup }) => (
       <div className={classes.item_text}>{index}</div>
     </div>
     <div className={`${classes.item} ${classes.center}`}>
+      <div className={classes.item_text}>
+        {new Date(vac.date.seconds * 1000).toLocaleDateString()}
+      </div>
+    </div>
+    <div className={`${classes.item} ${classes.center}`}>
       <div className={classes.item_text}>{vac.name}</div>
     </div>
     <div className={`${classes.item} ${classes.center}`}>
       <div className={classes.item_text}>{vac.place}</div>
     </div>
     <div className={`${classes.item} ${classes.center}`}>
-      <div className={classes.item_text}>{vac.price} тг</div>
+      <div className={classes.item_text}>{addSpacesToPrice(vac.price)} ₸</div>
     </div>
     <div className={classes.item}>
       <div className={classes.item_text}>{vac.responsibilities}</div>
@@ -94,29 +135,5 @@ const RowVacancy = ({ vac, index, delVac, openPopup }) => (
     </div>
   </div>
 );
-const HeaderVacancy = () => (
-  <div className={`${classes.row} ${classes.row_header}`}>
-    <div className={classes.item}>
-      <div className={classes.item_title}>Номер</div>
-    </div>
-    <div className={classes.item}>
-      <div className={classes.item_title}>Должность</div>
-    </div>
-    <div className={classes.item}>
-      <div className={classes.item_title}>Место</div>
-    </div>
-    <div className={classes.item}>
-      <div className={classes.item_title}>ЗП</div>
-    </div>
-    <div className={classes.item}>
-      <div className={classes.item_title}>Обязонности</div>
-    </div>
-    <div className={classes.item}>
-      <div className={classes.item_title}>Условия</div>
-    </div>
-    <div className={classes.item}>
-      <div className={classes.item_title}>Действия</div>
-    </div>
-  </div>
-);
+
 export default TableVacancyse;

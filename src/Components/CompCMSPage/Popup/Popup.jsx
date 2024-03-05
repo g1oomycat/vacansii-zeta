@@ -27,9 +27,8 @@ const animateCont = {
 };
 
 const Popup = observer(() => {
-  const { isOpenPopupCMS, statusOpenAllPopup } = useContext(Context);
+  const { isOpenPopupCMS } = useContext(Context);
   const closedPopup = () => {
-    statusOpenAllPopup.setIsOpen(false);
     isOpenPopupCMS.setIsOpen(false);
     isOpenPopupCMS.setIsSend(false);
     isOpenPopupCMS.setData(null);

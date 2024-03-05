@@ -49,16 +49,9 @@ export const DelApplicationsList = async (id) => {
 };
 //Запрос на изменении СТАТУСА "просмотренно"
 export const SetApplicationStatus = async (data, status) => {
-  let dataApplication = {
-    firstName: data.firstName,
-    lastName: data.lastName,
-    phoneNumber: data.phoneNumber,
-    job: data.job,
-    file: data.file,
-    isOpen: status,
-  };
+  data.isOpen = status;
   try {
-    await setDoc(doc(db, "applications", data.id), dataApplication);
+    await setDoc(doc(db, "applications", data.id), data);
   } catch (error) {
     console.error(error);
   }

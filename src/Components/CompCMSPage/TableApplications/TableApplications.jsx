@@ -6,6 +6,21 @@ import { Checkbox } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { SetApplicationStatus } from "../../../config/FireBaseApplications";
 import SpinLoader from "../../SpinLoader/SpinLoader";
+import { filterList } from "../../../functions/filterList";
+import FilterButton from "../FilterButton/FilterButton";
+
+const listButtonFilter = [{ date: "По дате" }, { job: "По должности" }];
+const listHeader = [
+  "Номер",
+  "Дата",
+  "Имя",
+  "Фамилия",
+  "Должность",
+  "Номер",
+  "Резюме",
+  "Просмотрено",
+  "Действия",
+];
 
 const theme1 = createTheme({
   palette: {
@@ -21,40 +36,58 @@ const theme1 = createTheme({
 });
 
 const TableApplications = observer(() => {
-  const { isOpenPopupCMS, dataApplFromServer, statusOpenAllPopup } =
-    useContext(Context);
+  const { isOpenPopupCMS, dataApplFromServer } = useContext(Context);
+
   //Запрос на изъятия данных
   useEffect(() => {
     const getVacData = async () => {
       await dataApplFromServer.getFromFirebase();
-      setApplicationsList(dataApplFromServer.listApplications);
       setIsLoad(false);
     };
     if (!dataApplFromServer.listApplications.length) {
       getVacData();
     }
+    setApplicationsList(dataApplFromServer.listApplications);
   }, [dataApplFromServer.listApplications]);
   const [applicationsList, setApplicationsList] = useState([]);
   const [isLoad, setIsLoad] = useState(true);
 
   //Запрос на удаление данных
   const delVac = async (data) => {
-    statusOpenAllPopup.setIsOpen(true);
     isOpenPopupCMS.setIsOpen(true);
     isOpenPopupCMS.setDelData(true);
     isOpenPopupCMS.setDelDataAppl(true);
     isOpenPopupCMS.setData(data);
+  };
+  //фильтрация списка по нажатию
+  const [atributFilter, setAtributFilter] = useState("date");
+  const filterApplications = (atribut) => {
+    setAtributFilter(atribut);
+    setApplicationsList(
+      filterList(dataApplFromServer.listApplications.slice(), atribut)
+    );
   };
   return (
     <>
       <div className={classes.table_title}>
         <div className={classes.title}>Все доступные заявки</div>
       </div>
+      <FilterButton
+        list_button={listButtonFilter}
+        filter_function={filterApplications}
+        atributFilter={atributFilter}
+      />
       <div className={classes.conteiner_applications}>
-        <HeaderVacancy />
+        <div className={`${classes.row} ${classes.row_header}`}>
+          {listHeader.map((item, index) => (
+            <div key={index} className={classes.item}>
+              <div className={classes.item_title}>{item}</div>
+            </div>
+          ))}
+        </div>
         {isLoad && <SpinLoader title={""} />}
         {!isLoad && !applicationsList.length && (
-          <div className={classes.messenge_clear}>Сободных вакансий нет</div>
+          <div className={classes.messenge_clear}>Заявок нет!</div>
         )}
         {applicationsList.map((item, index) => (
           <RowVacancy
@@ -68,34 +101,7 @@ const TableApplications = observer(() => {
     </>
   );
 });
-const HeaderVacancy = () => (
-  <div className={`${classes.row} ${classes.row_header}`}>
-    <div className={classes.item}>
-      <div className={classes.item_title}>Номер</div>
-    </div>
-    <div className={classes.item}>
-      <div className={classes.item_title}>Имя</div>
-    </div>
-    <div className={classes.item}>
-      <div className={classes.item_title}>Фамилия</div>
-    </div>
-    <div className={classes.item}>
-      <div className={classes.item_title}>Должность</div>
-    </div>
-    <div className={classes.item}>
-      <div className={classes.item_title}>Номер</div>
-    </div>
-    <div className={classes.item}>
-      <div className={classes.item_title}>Резюме</div>
-    </div>
-    <div className={classes.item}>
-      <div className={classes.item_title}>Просмотрено</div>
-    </div>
-    <div className={classes.item}>
-      <div className={classes.item_title}>Действия</div>
-    </div>
-  </div>
-);
+
 const RowVacancy = ({ vac, index, delVac }) => {
   const [checked, setChecked] = useState(vac.isOpen);
   const handleChange = (event) => {
@@ -107,6 +113,11 @@ const RowVacancy = ({ vac, index, delVac }) => {
     <div className={classes.row}>
       <div className={`${classes.item} ${classes.center}`}>
         <div className={classes.item_text}>{index}</div>
+      </div>
+      <div className={`${classes.item} ${classes.center}`}>
+        <div className={classes.item_text}>
+          {new Date(vac.date.seconds * 1000).toLocaleDateString()}
+        </div>
       </div>
       <div className={`${classes.item} ${classes.center}`}>
         <div className={classes.item_text}>{vac.firstName}</div>
@@ -121,7 +132,7 @@ const RowVacancy = ({ vac, index, delVac }) => {
         <div className={classes.item_text}>{vac.phoneNumber}</div>
       </div>
       <div className={`${classes.item} ${classes.center}`}>
-        {vac.file == null || vac.file == "Не прикреплено" ? (
+        {vac.file === null || vac.file === "Не прикреплено" ? (
           "Не прикреплено"
         ) : (
           <button>

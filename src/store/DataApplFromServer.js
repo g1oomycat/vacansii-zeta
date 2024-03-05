@@ -16,7 +16,10 @@ class DataApplFromServer {
   }
   async getFromFirebase() {
     const responce = await getApplicationsList();
-    this.setListApplications(responce);
+    const sortedApplications = responce.sort((a, b) => {
+      return b.date.seconds - a.date.seconds;
+    });
+    this.setListApplications(sortedApplications);
   }
   setIsLoadFromServer(isLoadFromServer) {
     this._isLoadFromServer = isLoadFromServer;

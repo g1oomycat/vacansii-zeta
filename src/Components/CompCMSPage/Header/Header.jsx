@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Header.module.scss";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../config/firebase";
 
@@ -16,7 +16,9 @@ const Header = () => {
       <div className="_cont_limit">
         <div className={classes.heder_body}>
           <div>
-            <button onClick={() => navigate("/")}>Сайт вакансии</button>
+            <Link to={"/"}>
+              <button>Сайт вакансии</button>
+            </Link>
           </div>
           <div className={classes.menu_list}>
             <div className={classes.name}>

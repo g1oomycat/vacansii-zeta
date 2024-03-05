@@ -3,13 +3,18 @@ import classes from "../Popup.module.scss";
 import { TextField, Button } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Controller, useForm } from "react-hook-form";
-import { requiredValidation } from "../../../../validation/validation";
+import {
+  requiredValidation,
+  numberValidation,
+  discriptionVacansiesValidation,
+} from "../../../../validation/validation";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../../..";
 import {
   AddVacanciesList,
   SetVacanciesList,
 } from "../../../../config/FireBaseVacancies";
+import { Timestamp } from "firebase/firestore";
 
 const theme1 = createTheme({
   palette: {
@@ -35,7 +40,7 @@ const theme1 = createTheme({
 });
 const AddVacancies = observer(({ closedPopup }) => {
   const { isOpenPopupCMS, dataVacFromServer } = useContext(Context);
-
+  //react-hook-form настройка и базовые значения
   const { handleSubmit, control } = useForm({
     mode: "onChange",
     defaultValues: {
@@ -48,14 +53,24 @@ const AddVacancies = observer(({ closedPopup }) => {
       conditions: isOpenPopupCMS.data ? isOpenPopupCMS.data.conditions : "",
     },
   });
+  //отправка формы (изменение или добавление вакансии)
   const onSubmit = async (dataForm) => {
     isOpenPopupCMS.setIsSend(true);
+    let dataVacancies = {
+      name: dataForm.name,
+      place: dataForm.place,
+      price: dataForm.price,
+      responsibilities: dataForm.responsibilities,
+      conditions: dataForm.conditions,
+      date: isOpenPopupCMS.data ? isOpenPopupCMS.data.date : Timestamp.now(),
+    };
     if (isOpenPopupCMS.data) {
-      await SetVacanciesList(isOpenPopupCMS.data.id, dataForm);
+      await SetVacanciesList(isOpenPopupCMS.data.id, dataVacancies);
     } else {
-      await AddVacanciesList(dataForm);
+      await AddVacanciesList(dataVacancies);
     }
     await dataVacFromServer.getFromFirebase();
+    console.log("complete change vac");
     closedPopup();
   };
   return (
@@ -105,13 +120,13 @@ const AddVacancies = observer(({ closedPopup }) => {
         <div className={classes.find_table_items}>
           <Controller
             name="price"
-            rules={requiredValidation}
+            rules={numberValidation}
             render={({ field, fieldState: { error } }) => (
               <TextField
                 {...field}
                 label="ЗП*"
                 fullWidth
-                placeholder="100 000"
+                placeholder="100000"
                 color="ochre"
                 helperText={error && error?.message}
                 error={!!error}
@@ -124,7 +139,7 @@ const AddVacancies = observer(({ closedPopup }) => {
         <div className={classes.find_table_items}>
           <Controller
             name="responsibilities"
-            rules={requiredValidation}
+            rules={discriptionVacansiesValidation}
             render={({ field, fieldState: { error } }) => (
               <TextField
                 {...field}
@@ -148,7 +163,7 @@ const AddVacancies = observer(({ closedPopup }) => {
         <div className={classes.find_table_items}>
           <Controller
             name="conditions"
-            rules={requiredValidation}
+            rules={discriptionVacansiesValidation}
             render={({ field, fieldState: { error } }) => (
               <TextField
                 {...field}

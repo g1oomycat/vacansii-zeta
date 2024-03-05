@@ -6,6 +6,7 @@ import { motion, AnimatePresence, useCycle } from "framer-motion";
 import PopupInfoVac from "../../PopupInfoVac/PopupInfoVac";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../..";
+import { addSpacesToPrice } from "../../../functions/addSpacesToPrice";
 
 const ListVacancies = observer(() => {
   const { dataVacFromServer } = useContext(Context);
@@ -54,7 +55,7 @@ const ListVacancies = observer(() => {
 
             <div className={classes.vac_column}>
               <span className={classes.title}>
-                Мы предлагаем большой выбор специальностей
+                <h2>Мы предлагаем большой выбор специальностей</h2>
               </span>
               {dataVacFromServer.isLoadFromServer ? (
                 <div className={classes.wrapper_item}>
@@ -95,9 +96,15 @@ const InfoVac = ({ indexVac }) => (
   <div className={`${classes.vac_column} ${classes.info_column}`}>
     {indexVac && (
       <div className={classes.info_column}>
-        <div className={classes.left_title}>{indexVac.name}</div>
-        <div className={classes.left_title}>{indexVac.place}</div>
-        <div className={classes.left_title}>от {indexVac.price} тг</div>
+        <div className={classes.left_title}>
+          <h3>{indexVac.name}</h3>
+        </div>
+        <div className={classes.left_title}>
+          <h3>{indexVac.place}</h3>
+        </div>
+        <div className={classes.left_title}>
+          <h3>от {addSpacesToPrice(indexVac.price)} ₸</h3>
+        </div>
         <DiscrptionInfoVac
           title={"Обязанности"}
           text={indexVac.responsibilities}
@@ -110,11 +117,13 @@ const InfoVac = ({ indexVac }) => (
 //информация о обязанностях и требования
 const DiscrptionInfoVac = ({ title, text }) => (
   <div className={classes.left_item}>
-    <div className={classes.item_title}>{title}</div>
+    <div className={classes.item_title}>
+      <h4>{title}</h4>
+    </div>
     <div className={classes.item_subtitle}>
       <ul>
         {text.split(";").map((item, index) => (
-          <li key={index}>{item}</li>
+          <li key={index}>{item.trim()}</li>
         ))}
       </ul>
     </div>
@@ -132,7 +141,9 @@ const DestroyListVac = ({
   widthWindow,
 }) => (
   <div key={id} className={classes.item} onClick={() => changeVac(id)}>
-    <span className={classes.item_text}>{`${name} (${place})`}</span>
+    <span className={classes.item_text}>
+      <h3>{`${name} (${place})`}</h3>
+    </span>
     <span
       className={`${classes.item_button} ${
         indexItem === id && widthWindow.SCREEN_LG && classes.button_active

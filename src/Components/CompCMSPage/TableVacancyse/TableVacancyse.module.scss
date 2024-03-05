@@ -19,7 +19,7 @@
     &:hover {
       background-color: $white;
       color: $black;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+      box-shadow: $shadow-small;
     }
   }
 }
@@ -28,15 +28,13 @@
   width: 100%;
   border: 1px solid rgba($color: $black, $alpha: 0.5);
   border-radius: 10px;
-  max-height: 80rem;
+  max-height: 100rem;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   background-color: $white;
-  // min-height: 20rem;
-
   &:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 16px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: $shadow-midle;
   }
   .messenge_clear {
     text-align: center;
@@ -48,7 +46,7 @@
   .row {
     position: relative;
     display: grid;
-    grid-template-columns: 0.5fr 1.3fr 1fr 0.7fr 3fr 3fr 0.7fr;
+    grid-template-columns: 0.5fr 0.6fr 1fr 1fr 0.7fr 2.2fr 2.2fr 0.7fr;
     height: 100%;
     &:hover {
       background-color: rgba($color: #000000, $alpha: 0.03);
@@ -89,8 +87,7 @@
         &:hover {
           background-color: $black;
           color: $white;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
-            0 8px 16px rgba(0, 0, 0, 0.1);
+          box-shadow: $shadow-small;
         }
       }
     }

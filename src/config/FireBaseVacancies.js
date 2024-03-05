@@ -16,36 +16,21 @@ export const getVacanciesList = async () => {
       ...doc.data(),
       id: doc.id,
     }));
-    console.log(filteredDataVacancies);
     return filteredDataVacancies;
   } catch (error) {
     console.error(error);
   }
 };
 //Запрос на добавление вакансии
-export const AddVacanciesList = async (data) => {
-  let dataVacancies = {
-    name: data.name,
-    place: data.place,
-    price: data.price,
-    responsibilities: data.responsibilities,
-    conditions: data.conditions,
-  };
+export const AddVacanciesList = async (dataVacancies) => {
   try {
-    const responce = await addDoc(vacanciesCollectionRef, dataVacancies);
+    await addDoc(vacanciesCollectionRef, dataVacancies);
   } catch (error) {
     console.error(error);
   }
 };
 //Запрос на изменении вакансии
-export const SetVacanciesList = async (id, data) => {
-  let dataVacancies = {
-    name: data.name,
-    place: data.place,
-    price: data.price,
-    responsibilities: data.responsibilities,
-    conditions: data.conditions,
-  };
+export const SetVacanciesList = async (id, dataVacancies) => {
   try {
     await setDoc(doc(db, "vacancies", id), dataVacancies);
   } catch (error) {

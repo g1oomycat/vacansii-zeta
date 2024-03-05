@@ -71,7 +71,7 @@
         min-width: 76rem;
         padding: 3rem 2rem;
         border-radius: 1rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+        box-shadow: $shadow-small;
         @media (max-width: $layout-breakpoint-SCREEN_XXL) {
           min-width: 58rem;
         }

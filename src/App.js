@@ -11,16 +11,16 @@ import { Context } from ".";
 
 const App = observer(() => {
   const location = useLocation();
-  const { statusOpenAllPopup } = useContext(Context);
+  // const { statusOpenAllPopup } = useContext(Context);
 
-  useEffect(() => {
-    if (statusOpenAllPopup.isOpen) {
-      document.documentElement.style.setProperty("--scrolledY", window.scrollY);
-      document.body.classList.add("active_body");
-    } else {
-      document.body.classList.remove("active_body");
-    }
-  }, [statusOpenAllPopup.isOpen]);
+  // useEffect(() => {
+  //   if (statusOpenAllPopup.isOpen) {
+  //     document.documentElement.style.setProperty("--scrolledY", window.scrollY);
+  //     document.body.classList.add("active_body");
+  //   } else {
+  //     document.body.classList.remove("active_body");
+  //   }
+  // }, [statusOpenAllPopup.isOpen]);
 
   return (
     <main className="main">

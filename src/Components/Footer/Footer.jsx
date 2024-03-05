@@ -6,17 +6,23 @@ import { FiYoutube } from "react-icons/fi";
 
 const Footer = () => {
   return (
-    <div className={classes.footer}>
+    <footer className={classes.footer}>
       <div className="_cont_limit">
         <div className={classes.body}>
           <div className={classes.item}>
-            <a href="https://www.zeta.kz/about_us/">О нас</a>
+            <a href="https://www.zeta.kz/about_us/">
+              <h4>О нас</h4>
+            </a>
           </div>
           <div className={classes.item}>
-            <a href="https://www.zeta.kz/our_stores/">Магазины</a>
+            <a href="https://www.zeta.kz/our_stores/">
+              <h4>Магазины</h4>
+            </a>
           </div>
           <div className={classes.item}>
-            <div className={classes.contacts}>Телефоны:</div>
+            <div className={classes.contacts}>
+              <h4>Телефоны:</h4>
+            </div>
             <div>
               <div className={classes.contacts}>
                 <a href="tel:+77077888423">+7 (707) 788-84-23</a>
@@ -54,7 +60,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

@@ -13,6 +13,18 @@ export const nameValidation = {
     return true;
   },
 };
+export const discriptionVacansiesValidation = {
+  required: REQUIRED_TEXT,
+  validate: (value) => {
+    if (!/^[^\n\r]*$/.test(value)) {
+      return "Перенос строк запрещен";
+    }
+    if (value.length > 450) {
+      return "Максимум 280символов";
+    }
+    return true;
+  },
+};
 export const numberValidation = {
   required: REQUIRED_TEXT,
   validate: (value) => {
@@ -33,7 +45,6 @@ export const adresValidation = {
 };
 export const emailValidation = {
   required: REQUIRED_TEXT,
-
   validate: (value) => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (!emailRegex.test(value)) {

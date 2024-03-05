@@ -24,7 +24,7 @@
     margin: 1.5rem;
     background-color: $white;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: $shadow-small;
     // @media (max-width: $layout-breakpoint-SCREEN_XL) {
     //   width: 60rem;
     // }
@@ -121,7 +121,7 @@
       &:hover {
         background-color: $black;
         color: $white;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+        box-shadow: $shadow-small;
       }
     }
   }

@@ -16,7 +16,10 @@ class DataVacFromServer {
   }
   async getFromFirebase() {
     const responce = await getVacanciesList();
-    this.setListVacancies(responce);
+    const sortedVacancies = responce.sort((a, b) => {
+      return b.date.seconds - a.date.seconds;
+    });
+    this.setListVacancies(sortedVacancies);
   }
   setIsLoadFromServer(isLoadFromServer) {
     this._isLoadFromServer = isLoadFromServer;

@@ -25,6 +25,7 @@ import {
   AddApplicationsList,
   AddApplicationsFile,
 } from "../../../../config/FireBaseApplications";
+import { Timestamp } from "firebase/firestore";
 
 const theme1 = createTheme({
   palette: {
@@ -52,13 +53,12 @@ const theme2 = createTheme({
 });
 
 const Form = observer(({ widthWindow, vacanciesList }) => {
-  const { isOpenPopupServer, statusOpenAllPopup } = useContext(Context);
+  const { isOpenPopupServer } = useContext(Context);
   const { handleSubmit, control, reset } = useForm({
     mode: "onChange",
   });
 
   const onSubmit = async (data) => {
-    statusOpenAllPopup.setIsOpen(true);
     isOpenPopupServer.setIsOpen(true);
     let dataApplication = {
       firstName: data.firstName,
@@ -67,6 +67,7 @@ const Form = observer(({ widthWindow, vacanciesList }) => {
       job: data.job,
       file: null,
       isOpen: false,
+      date: Timestamp.now(),
     };
     try {
       if (!!data.file) {
@@ -88,7 +89,9 @@ const Form = observer(({ widthWindow, vacanciesList }) => {
         onSubmit={handleSubmit(onSubmit)}
         className={classes.column_form}
       >
-        <span className={classes.enter_title}>Присоединяйтесь к команде</span>
+        <span className={classes.enter_title}>
+          <h2>Присоединяйтесь к команде</h2>
+        </span>
         <div className={classes.find_table_items}>
           <Controller
             name="firstName"

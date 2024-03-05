@@ -1,0 +1,22 @@
+@import "../../../styles/scss/break_point.scss";
+
+.filter_button {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  gap: 1.2em;
+  font-weight: 500;
+  button {
+    font-size: inherit;
+    font-weight: inherit;
+    padding: 0.4em 1em;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    &.active_filter,
+    &:hover {
+      color: $white;
+      background-color: $black;
+      box-shadow: $shadow-midle;
+    }
+  }
+}

@@ -25,9 +25,8 @@ const animateCont = {
   },
 };
 const PopupSend = observer(() => {
-  const { isOpenPopupServer, statusOpenAllPopup } = useContext(Context);
+  const { isOpenPopupServer } = useContext(Context);
   const closedPopup = () => {
-    statusOpenAllPopup.setIsOpen(false);
     isOpenPopupServer.setIsOpen(false);
     isOpenPopupServer.setIsSend(false);
   };

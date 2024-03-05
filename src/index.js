@@ -5,7 +5,6 @@ import PopupApplicationsSendToServer from "./store/PopupSendToServer";
 import PopupCMS from "./store/PopupCMS";
 import DataVacFromServer from "./store/DataVacFromServer";
 import DataApplFromServer from "./store/DataApplFromServer";
-import StatusOpenAllPopup from "./store/StatusOpenAllPopup";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 export const Context = createContext(null);
@@ -18,7 +17,6 @@ root.render(
       isOpenPopupCMS: new PopupCMS(),
       dataVacFromServer: new DataVacFromServer(),
       dataApplFromServer: new DataApplFromServer(),
-      statusOpenAllPopup: new StatusOpenAllPopup(),
     }}
   >
     <Router>
