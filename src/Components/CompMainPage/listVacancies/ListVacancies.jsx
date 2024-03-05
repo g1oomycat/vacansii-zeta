@@ -123,7 +123,9 @@ const DiscrptionInfoVac = ({ title, text }) => (
     <div className={classes.item_subtitle}>
       <ul>
         {text.split(";").map((item, index) => (
-          <li key={index}>{item.trim()}</li>
+          <li key={index}>
+            <h4>{item.trim()}</h4>
+          </li>
         ))}
       </ul>
     </div>
